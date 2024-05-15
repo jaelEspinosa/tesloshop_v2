@@ -10,10 +10,10 @@ interface Props
     product: Product;
 }
 
-export default function ProductGridItem({product}:Props) {
 
+
+export const ProductGridItem = ({product}:Props) => {
   const [displayImage, setDisplayImage] = useState(product.images[0])  
-
   return (
     <div className='rounded-md overflow-hidden fade-in'>
       <Link href={`/product/${ product.slug }`}>
@@ -37,3 +37,4 @@ export default function ProductGridItem({product}:Props) {
     </div>
   )
 }
+

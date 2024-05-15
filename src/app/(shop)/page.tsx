@@ -1,5 +1,6 @@
-import ProductGrid from "@/components/products/product-grid/ProductGrid";
-import Title from "@/components/ui/title/Title";
+
+import { ProductGrid, Title } from "@/components";
+
 import { initialData } from "@/seed/seed";
 
 

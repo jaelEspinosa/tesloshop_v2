@@ -1,4 +1,5 @@
-import Sidebar from '@/components/ui/sidebar/Sidebar';
+
+import { Sidebar } from '@/components';
 import { TopMenu } from '../../components/ui/top-menu/TopMenu';
 
 

@@ -6,7 +6,11 @@ interface Props {
     className?  : string;
 }
 
-export default function Title({title, subTitle, className}:Props) {
+
+
+import React from 'react'
+
+export const Title = ({title, subTitle, className}:Props) => {
   return (
     <div className={` mt-3 ${ className }`}>
        <h1 className={`${ titleFont.className} antialiased text-4xl font-semibold my-10`}>
@@ -21,3 +25,4 @@ export default function Title({title, subTitle, className}:Props) {
     </div>
   )
 }
+

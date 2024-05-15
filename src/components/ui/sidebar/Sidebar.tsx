@@ -5,10 +5,12 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoPeopleOutline, IoPersonOutline, IoSearchOutline, IoShirtOutline, IoTicketOutline } from 'react-icons/io5'
 
-export default function Sidebar() {
+
+import React from 'react'
+
+export const Sidebar = () => {
   const issideMenuOpen = useUiStore( state => state.isSideMenuOpen );
   const closeMenu      = useUiStore( state => state.closeSideMenu );
-
   return (
     <div>
       {/* background black */}
@@ -17,8 +19,7 @@ export default function Sidebar() {
           <div className='fixed top-0 left-0 w-screen h-screen z-10 bg-black opacity-30' />
         )
 
-      }
-       
+      }     
 
       
       {/* blur */}
