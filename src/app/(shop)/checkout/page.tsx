@@ -54,7 +54,7 @@ export default function  CheckoutPage(){
 
             {/* Checkout - Resumen de orden */}
 
-            <div className="bg-white rounded-xl shadow-xl p-7">
+            <div className="bg-white rounded-xl shadow-xl p-7 h-auto">
 
 
                 <h2 className="text-2xl font-bold mb-2">Dirección de entrega</h2>

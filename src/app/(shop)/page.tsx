@@ -13,7 +13,7 @@ export default function Home() {
       <Title 
           title="Tienda"
           subTitle="Todos los productos"
-          className="mb-2" 
+          className="mb-2 ml-2 sm:ml-0 " 
       />
 
       <ProductGrid products={products}/>
