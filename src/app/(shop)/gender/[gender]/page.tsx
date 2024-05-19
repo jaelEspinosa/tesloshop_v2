@@ -3,6 +3,7 @@ export const revalidate = 60; //se regenera la pagina cada 60 segundos
 import { getPaginatedProductsWithImages } from "@/actions";
 import { Pagination, ProductGrid, Title } from "@/components";
 import { Gender } from "@prisma/client";
+import { Metadata, ResolvingMetadata } from "next";
 import { redirect } from "next/navigation";
 
 
@@ -16,6 +17,18 @@ interface Props {
     searchParams: {
         page? : string;
       }
+}
+
+export async function generateMetadata(
+    { params }: Props,
+    parent: ResolvingMetadata
+): Promise<Metadata> {
+    // read route params
+    const gender = params.gender
+
+    return {
+        title: gender,
+    }
 }
 
 
