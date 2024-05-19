@@ -53,7 +53,7 @@ products.forEach( async product => {
     data: imagesData
   });
 });
-
+ console.log('Seed ejecutado con éxito')
 }
 
 
