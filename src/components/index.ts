@@ -5,9 +5,13 @@ export * from './ui/not-found/PageNotFound';
 export * from './ui/footer/Footer';
 export * from './ui/pagination/Pagination';
 
-export * from './products/slideshow/ProductSlideshowMobile';
-export * from './products/slideshow/ProductSlideshow';
-export * from './products/size-selector/SizeSelector';
-export * from './products/quntity-selector/QuantitySelector';
+export * from './product/slideshow/ProductSlideshowMobile';
+export * from './product/slideshow/ProductSlideshow';
+export * from './product/size-selector/SizeSelector';
+export * from './product/quntity-selector/QuantitySelector';
+export * from './product/stock-label/StockLabel';
+
+
+
 export * from './products/product-grid/ProductGrid';
 export * from './products/product-grid/ProductGrid';
