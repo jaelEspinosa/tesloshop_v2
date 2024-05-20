@@ -25,6 +25,7 @@ export const StockLabel = ({ slug }: Props) => {
         const stock = await getStockBySlog(slug)
         setStock(stock)
         setIsLoading(false)
+        console.log('el stock',stock)
     }
 
     /* const product = await getProductByslug( slug ) */
@@ -36,12 +37,12 @@ export const StockLabel = ({ slug }: Props) => {
                         <h1 className={clsx(
                             `${titleFont.className} antialiased font-bold text-l rounded-md text-center w-fit px-2`,
                             {
-                                'bg-green-600': stock > 10,
+                                'bg-green-600': stock >= 10,
                                 'bg-orange-500': stock < 10 && stock >= 1,
                                 'bg-red-600': stock < 1
                             }
                         )}>
-                            {stock > 10 ? 'Disponible' : stock < 10 && stock >= 1 ? 'Últimas unidades' : stock < 1 ? 'Agotado' : null}
+                            {stock >= 10 ? 'Disponible' : stock < 10 && stock >= 1 ? 'Últimas unidades' : stock < 1 ? 'Agotado' : null}
                         </h1>
                     )
                     :
