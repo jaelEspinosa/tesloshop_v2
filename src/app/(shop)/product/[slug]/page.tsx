@@ -1,12 +1,14 @@
 export const revalidate = 60480; //7 dias
 
 
-import { getProductByslug } from "@/actions";
+
+import { getProductByslug } from "@/actions/products/get-product-by-slug";
 import { ProductSlideshow, ProductSlideshowMobile, QuantitySelector, SizeSelector, StockLabel } from "@/components";
 import { titleFont } from "@/config/fonts";
 import { Metadata, ResolvingMetadata } from "next";
 
 import { notFound } from "next/navigation";
+import { AddTocart } from "./ui/AddTocart";
 
 interface Props {
     params: {
@@ -30,12 +32,7 @@ export async function generateMetadata(
     return {
         title: product?.title,
         description: product?.description ?? '',
-        openGraph: {
-            title: product?.title,
-            description: product?.description ?? '',
-            //images [], // https://midominio.com/products/prod-1/image.jpg
-            images: [`/products/${product?.images[1]}`],
-        },
+       
     }
 }
 
@@ -69,16 +66,7 @@ export default async function ProductPage({ params }: Props) {
                 </h1>
                 <p className="text-lg mb-5">$ {product.price}</p>
 
-                {/* Selector de tallas */}
-                <SizeSelector slug={product.slug} />
-
-
-                {/* Selector de cantidad */}
-                <QuantitySelector quantity={1} />
-
-                {/* boton */}
-
-                <button className="btn-primary my-5">Agregar al Carrito</button>
+                 <AddTocart product={product}/>
 
                 {/* Descripción */}
                 <h3 className="font-bold text-sm">Descripción</h3>

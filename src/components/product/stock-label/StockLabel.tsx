@@ -3,7 +3,8 @@
 
 
 
-import { getStockBySlog } from '@/actions'
+
+import { getStockBySlog } from '@/actions/products/get-stock-by-slug'
 import { titleFont } from '@/config/fonts'
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
