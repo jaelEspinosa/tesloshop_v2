@@ -9,6 +9,7 @@ import { Metadata, ResolvingMetadata } from "next";
 
 import { notFound } from "next/navigation";
 import { AddTocart } from "./ui/AddTocart";
+import { currencyFormat } from "@/utils";
 
 interface Props {
     params: {
@@ -64,7 +65,7 @@ export default async function ProductPage({ params }: Props) {
                 <h1 className={`${titleFont.className} antialiased font-bold text-xl`}>
                     {product.title}
                 </h1>
-                <p className="text-lg mb-5">$ {product.price}</p>
+                <p className="text-lg mb-5">{currencyFormat(product.price)}</p>
 
                  <AddTocart product={product}/>
 
