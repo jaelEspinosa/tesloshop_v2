@@ -5,6 +5,7 @@ import { authenticate } from '@/actions/auth/login';
 import clsx from 'clsx';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
 
@@ -15,13 +16,16 @@ import { FiAlertOctagon } from 'react-icons/fi';
 export const LoginForm = () => {
 
     const [state, dispatch ] = useFormState(authenticate, undefined); 
-    const { data: session } = useSession()
+    const { data: session } = useSession();
+    const searchParams = useSearchParams();
+    const params = searchParams.get('redirecTo')
 
     useEffect(()=>{
+        
         if (state === "Success"){
-            window.location.replace('/')
+          params ? window.location.replace(params) : window.location.replace('/')
         }
-    },[state])
+    },[state, params])
      
     return (
         <form action={ dispatch } className="flex flex-col">
@@ -31,11 +35,13 @@ export const LoginForm = () => {
                 className="px-5 py-2 border bg-gray-200 rounded mb-5"
                 type="email"
                 name='email'
+                autoComplete='email'
                  />
 
 
             <label htmlFor="email">Contraseña</label>
             <input
+                autoComplete='current-password'
                 className="px-5 py-2 border bg-gray-200 rounded mb-5"
                 type="password"
                 name='password'
@@ -64,7 +70,7 @@ export const LoginForm = () => {
             </div>
 
             <Link
-                href="/auth/new-account"
+                href={params ? `/auth/new-account?redirecTo=${params}` : "/auth/new-account"}
                 className="btn-secondary text-center">
                 Crear una nueva cuenta
             </Link>

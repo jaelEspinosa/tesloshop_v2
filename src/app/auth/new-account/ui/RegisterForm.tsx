@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { registerUser } from '../../../../actions/auth/register';
 import { useState } from "react";
 import { login } from "@/actions/auth/login";
+import { useSearchParams } from "next/navigation";
 
 type FormInputs = {
     name: string;
@@ -19,6 +20,9 @@ export const RegisterForm = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormInputs>()
 
+    const searchParams = useSearchParams();
+    const params = searchParams.get('redirecTo');
+
     const onSubmit: SubmitHandler<FormInputs> = async (data) => {
 
         const { name, email, password } = data
@@ -31,7 +35,9 @@ export const RegisterForm = () => {
         }
 
         await login( email.toLowerCase(), password);
-        window.location.replace('/');
+
+
+        params ? window.location.replace(params) :window.location.replace('/');
     }
 
     return (
@@ -48,6 +54,7 @@ export const RegisterForm = () => {
                     }
                 )}
                 type="text"
+                autoComplete="name"
                 autoFocus
                 {...register('name', { required: true })}
             />
@@ -61,6 +68,7 @@ export const RegisterForm = () => {
                     }
                 )}
                 type="text"
+                autoComplete="email"
                 {...register('email', { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ })}
             />
             {
@@ -79,6 +87,7 @@ export const RegisterForm = () => {
                     }
                 )}
                 type="password"
+                autoComplete="current-password"
                 {...register('password', { required: true, pattern: /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/ })}
             />
 
