@@ -16,4 +16,24 @@ export const getCountries = async () => {
         console.log(error)
         return []
     }
+
+
 }
+export const getCountry = async (countryId: string) =>{
+
+    try {
+
+       const country = await prisma.country.findUnique({
+        where:{
+            id: countryId 
+        }
+       }) 
+       if(!country) return null;
+       return country;
+          
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+
+}    
