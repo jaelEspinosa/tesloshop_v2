@@ -1,5 +1,7 @@
 import prisma from '../lib/prisma'
 import { initialData } from "./seed";
+import { countries } from './seed-countries';
+
 
 
 async function main() {
@@ -7,6 +9,8 @@ async function main() {
 
  // 1. Borrar registros previos.
   /* await Promise.all( [ */
+    await prisma.userAddress.deleteMany();
+    await prisma.country.deleteMany();
     await prisma.user.deleteMany();
     await prisma.productImage.deleteMany();
     await prisma.product.deleteMany();
@@ -62,8 +66,16 @@ products.forEach( async product => {
     data: imagesData
   });
 });
+// countries
+
+await prisma.country.createMany({
+  data: countries
+})
+
+
  console.log('Seed ejecutado con éxito')
 }
+
 
 
 (() => {

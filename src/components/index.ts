@@ -4,6 +4,7 @@ export * from './ui/sidebar/Sidebar';
 export * from './ui/not-found/PageNotFound';
 export * from './ui/footer/Footer';
 export * from './ui/pagination/Pagination';
+export * from './ui/spinner/LoadingSpinner';
 
 export * from './product/slideshow/ProductSlideshowMobile';
 export * from './product/slideshow/ProductSlideshow';
