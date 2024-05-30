@@ -150,7 +150,7 @@ export const placeOrder = async (
       prismaTx: prismaTx,
     }
   } catch (error:any) {
-    console.log(error);
+    console.log('mi maravilloso error es',error);
     return {
       ok: false,
       message: error?.message,
