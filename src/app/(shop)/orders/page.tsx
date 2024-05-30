@@ -1,15 +1,30 @@
 
 
 // https://tailwindcomponents.com/component/hoverable-table
+
+import { getOrdersByUser } from '@/actions/order/get-orders-by-user';
 import { Title } from '@/components';
+import { Empty } from '@/components/ui/order-list/Empty';
+import clsx from 'clsx';
 
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import { IoCardOutline } from 'react-icons/io5';
 
-export default function OrdersPage() {
+export default async function OrdersPage() {
+
+  const resp  = await getOrdersByUser()
+  if(!resp?.ok){
+    redirect('/')
+}
+  const orderList = resp!.orderList
+
+
+  
+
   return (
     <>
-      <Title title="Orders" />
+      <Title title="Pedidos" />
 
       <div className="mb-10">
         <table className="min-w-full">
@@ -31,48 +46,54 @@ export default function OrdersPage() {
           </thead>
           <tbody>
 
-            <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+            
+           { 
+             orderList!.map(order => (
 
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
+            <tr key={order.id} className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"># {order.id.split('-').at(-1)}</td>
               <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                Mark
+              {order.OrderAddress?.firstName} {order.OrderAddress?.lastName}
               </td>
               <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
 
-                <IoCardOutline className="text-green-800" />
-                <span className='mx-2 text-green-800'>Pagada</span>
+                <IoCardOutline className={clsx(
+                  {
+                    'mx-2 text-green-800': order.isPaid,
+                    'mx-2 text-red-800' : !order.isPaid
+                  }
+                )} />
+                <span className={clsx(
+                  {
+                    'mx-2 text-green-800': order.isPaid,
+                    'mx-2 text-red-800' : !order.isPaid
+                  }
+                )}>
+                  {
+                    order.isPaid ? 'Pagada' : 'Pendiente de Pago'
+                  }
+                </span>
 
               </td>
               <td className="text-sm text-gray-900 font-light px-6 ">
-                <Link href="/orders/123" className="hover:underline">
+                <Link href={`/orders/${order.id}`} className="hover:underline">
                   Ver orden
                 </Link>
               </td>
-
             </tr>
 
-            <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                Mark
-              </td>
-              <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-
-                <IoCardOutline className="text-red-800" />
-                <span className='mx-2 text-red-800'>No Pagada</span>
-
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 ">
-                <Link href="/orders/123" className="hover:underline">
-                  Ver orden
-                </Link>
-              </td>
-
-            </tr>
-
+             ))
+           }
+          
           </tbody>
         </table>
+        {
+              orderList!.length < 1 && (
+                <Empty />
+              )
+            }
+
       </div>
     </>
   );

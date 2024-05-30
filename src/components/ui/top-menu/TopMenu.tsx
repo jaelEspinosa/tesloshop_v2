@@ -5,7 +5,7 @@ import { useCartStore, useUiStore } from '@/store'
 
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+
 
 import React, { useEffect, useState } from 'react'
 import { IoSearchOutline, IoCartOutline } from "react-icons/io5"
@@ -15,19 +15,13 @@ export const TopMenu = () => {
   const openMenu     = useUiStore( state => state.openSideMenu );
   const totalItemsInCart = useCartStore( state => state.getTotalItems() );
   const [loaded, setLoaded] = useState(false);
-  const router = useRouter()
+  
 
   useEffect(() => {
     setLoaded(true)
     
     }, [])
-  useEffect(() => {
-    if ( totalItemsInCart === 0 && loaded === true )   {
-      router.replace('/empty')
-    }
-  
-    
-  }, [loaded, router, totalItemsInCart])
+ 
   
   return (
     <nav className='flex px-5 justify-between items-center w-full'>

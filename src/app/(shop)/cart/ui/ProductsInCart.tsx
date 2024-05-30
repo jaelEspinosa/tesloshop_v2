@@ -8,19 +8,30 @@ import { IoTrashOutline } from 'react-icons/io5'
 import Link from 'next/link'
 import { CartProduct } from '@/interfaces'
 import { currencyFormat } from '@/utils'
+import { useRouter } from 'next/navigation'
 
 
 export const ProductsInCart = () => {
 
   const [loaded, setLoaded] = useState<boolean>(false);
+  const router = useRouter()
 
   const productsIncart = useCartStore( state => state.cart )
   const updateProductQuantity = useCartStore( state => state.updateProductQuantity);
   const removeProduct = useCartStore( state => state.removeProduct)
+  const totalItemsInCart = useCartStore( state => state.getTotalItems() );
 
   useEffect(() => {
     setLoaded(true)
     }, [])
+
+
+    useEffect(() => {
+      if ( totalItemsInCart === 0 && loaded === true )   {
+        router.replace('/empty')
+      } 
+      
+    }, [loaded, router, totalItemsInCart])  
   
   const onRemoveProduct = ( product: CartProduct) => {
    removeProduct(product)

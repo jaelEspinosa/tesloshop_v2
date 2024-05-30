@@ -63,11 +63,12 @@ export const AddressForm = ({ countries, userStoredAddress = {} }:Props) => {
     
     const onSubmit = async (data: FormInputs) => {  
         
-       setAddress( data )
-        const {rememberAddress, ...restAddres} = data
+        const {rememberAddress, ...restAddress} = data
+        setAddress( restAddress )
+        
         if( rememberAddress ){
             // grabo la direccion en base de datos llamando al ServerAction.
-        await    setUserAddress(restAddres, session!.user.id )
+        await    setUserAddress(restAddress, session!.user.id )
         } else {
             // Elimino de la base de datos en caso de que exista.
         await    deleteUserAddress( session!.user.id )

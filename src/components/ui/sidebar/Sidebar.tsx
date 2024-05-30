@@ -1,6 +1,6 @@
 'use client';
 
-import { useUiStore } from '@/store';
+import { useAddressStore, useUiStore } from '@/store';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoPeopleOutline, IoPersonOutline, IoSearchOutline, IoShirtOutline, IoTicketOutline } from 'react-icons/io5'
@@ -16,12 +16,16 @@ export const Sidebar = () => {
 
   const { data: session } = useSession()
 
+  const cleanAddress = useAddressStore(state => state.cleanAddress)
+
   const isAuthenticated = session?.user ? true : false;
   const isAdmin = session?.user.role === 'admin';
 
 
   const onLogout = async () => {
     await logout();
+    cleanAddress();
+    /* localStorage.removeItem('address-storage') */
     window.location.replace('/')
   }
 
@@ -47,7 +51,7 @@ export const Sidebar = () => {
       {/*  Sidemenu */}
 
       <nav
-        //todo efecto slide
+        // efecto slide
         className={
           clsx(
             "fixed p-5 right-0 top-0 w-[300px] h-screen bg-white z-20 shadow-2xl transform transition-all duration-300",
@@ -98,7 +102,10 @@ export const Sidebar = () => {
               <IoPersonOutline size={30} />
               <span className='ml-3 text-xl'>Perfil</span>
             </Link>
-            <Link href='/' className='flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all'>
+            <Link href='/orders' 
+                  className='flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all'
+                  onClick={closeMenu}
+                  >
               <IoTicketOutline size={30} />
               <span className='ml-3 text-xl'>Ordenes</span>
             </Link>
