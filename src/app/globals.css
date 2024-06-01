@@ -64,6 +64,6 @@ body {
 }
 
 .mySpinner{
-  height: calc(100vh - 300px);
-  
+  height: calc(70vh - 300px);
+  background-color: transparent;
 }

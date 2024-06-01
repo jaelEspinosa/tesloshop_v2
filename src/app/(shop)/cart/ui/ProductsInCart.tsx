@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 
-import { QuantitySelector } from '@/components'
+import { LoadingSpinner, QuantitySelector } from '@/components'
 import { useCartStore } from '@/store'
 import Image from 'next/image'
 import { IoTrashOutline } from 'react-icons/io5'
@@ -39,7 +39,7 @@ export const ProductsInCart = () => {
 
   if(!loaded){
     return (
-        <p className='text-xl font-bold text-blue-600'>Cargando...</p>
+        <LoadingSpinner/>
     )
   }
   

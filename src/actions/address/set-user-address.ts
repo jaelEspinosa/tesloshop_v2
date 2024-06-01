@@ -55,7 +55,7 @@ const createOrReplaceAddress = async (address: Address, userId: string) => {
     
         
             const updatedAddress = await prisma.userAddress.update({
-                where:{ userId},
+                where:{ userId },
                 data: addressToSave
             })
             return updatedAddress;

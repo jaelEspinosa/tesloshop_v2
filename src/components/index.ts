@@ -18,5 +18,9 @@ export * from './products/product-grid/ProductGrid';
 export * from './products/product-grid/ProductGrid';
 
 
-export * from './provider/Provider';
+export * from './providers/Providers';
 
+export * from './paypal/PaypalButton'
+
+
+export * from './orders/OrderStatus'
