@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 
-import { LoadingSpinner, QuantitySelector } from '@/components'
+import { LoadingSpinner, ProductImage, QuantitySelector } from '@/components'
 import { useCartStore } from '@/store'
 import Image from 'next/image'
 import { IoTrashOutline } from 'react-icons/io5'
@@ -46,11 +46,11 @@ export const ProductsInCart = () => {
   return (
     
     <>
-    {
+              {
                 productsIncart.map( product => (
                     <div key={`${product.slug}-${product.size}`} className="flex mb-5">
-                   <Image 
-                     src={`/products/${product.image}`}
+                   <ProductImage 
+                     src={ product.image }
                      width={100}
                      height={100}
                      style={{
@@ -59,7 +59,7 @@ export const ProductsInCart = () => {
                      }}
                      alt={product.title}
                      className="mr-5 rounded"
-                     priority={true}
+                     
                    />
                         <div className="w-full">                            
                             

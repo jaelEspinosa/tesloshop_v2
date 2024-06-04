@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import {Swiper as SwiperObject} from 'swiper'
 import { Autoplay, FreeMode, Navigation, Thumbs } from 'swiper/modules';
 
+import { ProductImage } from '@/components';
 
 
 // Import Swiper styles
@@ -14,6 +15,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 
 import './slideshow.css';
+
 
 interface Props {
     images       : string[];
@@ -47,10 +49,10 @@ export const ProductSlideshow = ({ images, title, className }:Props) => {
         className="mySwiper2"
       >
         {
-            images.map(image => (
+        images.length ? images.map(image => (
                 <SwiperSlide key={image}>
-                  <Image 
-                  src={`/products/${image}`}
+                  <ProductImage
+                  src={ image }
                   alt={`${title}`}
                   
                   width={1024}
@@ -58,8 +60,21 @@ export const ProductSlideshow = ({ images, title, className }:Props) => {
                   className="rounded-lg object-cover"
                   />
                 </SwiperSlide>
-            ))
-        }
+            )) 
+          :
+          (
+                <SwiperSlide >
+                  <ProductImage
+                  src={ images[0] }
+                  alt={`${title}`}
+                  
+                  width={1024}
+                  height={800}
+                  className="rounded-lg object-cover"
+                  />
+                </SwiperSlide>
+          )
+         }
     
       </Swiper>
       <Swiper
@@ -72,10 +87,10 @@ export const ProductSlideshow = ({ images, title, className }:Props) => {
         className="mySwiper"
       >
          {
-            images.map(image => (
+          images.length ? images.map(image => (
                 <SwiperSlide key={image}>
-                  <Image 
-                  src={`/products/${image}`}
+                  <ProductImage 
+                  src={ image }
                   alt={`title`}
                   width={200}
                   height={200}
@@ -83,6 +98,18 @@ export const ProductSlideshow = ({ images, title, className }:Props) => {
                   />
                 </SwiperSlide>
             ))
+            :
+            (
+              <SwiperSlide >
+                  <ProductImage 
+                  src={ images[0] }
+                  alt={`title`}
+                  width={200}
+                  height={200}
+                  className="rounded-lg object-cover"
+                  />
+                </SwiperSlide>
+            )
         }
       </Swiper>
     </div>

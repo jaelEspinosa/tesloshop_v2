@@ -11,7 +11,7 @@ interface PaginationOptions {
 
 
 export const getPaginatedProductsWithImages = async ({ page = 1, take = 12, gender }:PaginationOptions) => {
-    console.log('gender ',gender)
+   
     if(isNaN(Number(page))) page = 1;
     if(page < 1) page = 1;
 
@@ -33,7 +33,7 @@ export const getPaginatedProductsWithImages = async ({ page = 1, take = 12, gend
         }
     })
     // 2. obtener el total de paginas
-      //todo
+    
     const totalCount = await prisma.product.count({
         where: {
             gender:gender,

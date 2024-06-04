@@ -10,11 +10,7 @@ export const getProductByslug = async (slug:string)=>{
          const product = await prisma.product.findUnique({
             
             include: {
-                ProductImage:{
-                 select:{
-                    url: true
-                   }
-                }            
+                ProductImage:true            
             },
             where:{
                 slug:slug,
@@ -23,14 +19,15 @@ export const getProductByslug = async (slug:string)=>{
 
          if(!product) return null;
 
-         const {ProductImage, ...rest} = product
+         
 
          return {            
-            ...rest,
+            ...product,
             images: product.ProductImage.map( image => image.url )
            }
         
     } catch (error) {
+        console.log('el error es...',error)
         throw new Error ('No se pudo cargar el producto por slug');
     }
 }

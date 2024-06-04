@@ -63,7 +63,24 @@ body {
   @apply bg-gray-200 text-black py-2 px-4 rounded transition-all;
 }
 
+.btn-delete {
+  @apply bg-red-500 hover:bg-red-700 text-white py-2 px-4 transition-all;
+}
 .mySpinner{
   height: calc(70vh - 300px);
   background-color: transparent;
+}
+
+.my_table{
+ height: calc(100vh - 350px);
+ overflow-y: scroll;
+}
+
+.myScroll::-webkit-scrollbar{
+  width: 5px!important;
+
+}
+.myScroll::-webkit-scrollbar-thumb{
+  background:rgb(61, 59, 59)!important;
+  border-radius: 10px!important;
 }

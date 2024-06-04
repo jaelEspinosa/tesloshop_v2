@@ -124,16 +124,15 @@ export const placeOrder = async (
         },
       });
 
-      // Validar, si el price es 0, entonces, lanzamos un error.
 
       //3. Crear la direccion de la orden.
-
+      console.log('creamos direccion en la order')
       const { country, ...restAddress } = address;
-
+      delete restAddress.userId  //TODO: comprobar que esto funcione...
       const orderAddress = await tx.orderAddress.create({
         data: {
           ...restAddress,
-          countryId: address.country,
+          countryId: country,
           orderId: order.id,
         },
       });
