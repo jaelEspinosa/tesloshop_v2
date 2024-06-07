@@ -28,11 +28,11 @@ export default function  CartPage(){
 
             {/* Checkout - Resumen de orden */}
 
-            <div className="bg-white rounded-xl shadow-xl p-7 h-72">
+            <div className="bg-white rounded-xl shadow-xl p-7 h-80 sm:h-72 ">
                 <h2 className="text-2xl mb-2">Resumen del pedido</h2>
                 <OrderSumary />
 
-                <div className="mt-5 mb-2 w-full">
+                <div className="mt-5 mb-5 w-full">
                     <Link 
                         href='/checkout/address'
                         className="flex btn-primary justify-center"

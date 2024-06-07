@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const ProductImage = ({src, alt, width, height, className,style}:Props) => {
-    console.log('la url es ', src)
+
     const localSrc = ( src ) 
       ? src.startsWith('http')
        ? src

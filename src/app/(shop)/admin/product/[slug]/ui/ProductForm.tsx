@@ -1,16 +1,18 @@
 "use client";
 
 import { createUpdateProduct } from "@/actions/products/create-update-proudct";
-import { Category, Product, ProductImage } from "@/interfaces";
+import { deleteProductImage } from "@/actions/products/delete-product-image";
+import { ProductImage } from "@/components";
+import { Category, Product, ProductImage as IProductImage } from "@/interfaces";
 import clsx from "clsx";
-import Image from "next/image";
+
 import { useRouter } from "next/navigation";
 
 
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface Props {
-  product: Partial<Product> & { ProductImage?: ProductImage []} ;
+  product: Partial<Product> & { ProductImage?: IProductImage []} ;
   categories: Category[];
 }
 
@@ -28,7 +30,8 @@ interface FormInputs {
   categoryId: string;
 
 
-  //Todo: Imagenes
+
+  images?: FileList;  // Todo: hacerlo obligatorio
 
 }
 
@@ -41,9 +44,9 @@ export const ProductForm = ({ product, categories }: Props) => {
     defaultValues:{
       ...product,
       tags: product.tags?.join(', '),
-      sizes: product.sizes ?? []
+      sizes: product.sizes ?? [],
       
-      //TODO: images
+      images: undefined
     
     }
   })
@@ -53,13 +56,12 @@ export const ProductForm = ({ product, categories }: Props) => {
   const onSubmit: SubmitHandler<FormInputs> = async (data: FormInputs) => {
     const formData = new FormData();
 
-    const {  ...productToSave} = data;
+    const {images, ...productToSave} = data;
 
     
     if(product.id){
       formData.append('id', product.id ?? '');
     }
-
 
     formData.append('title', productToSave.title );
     formData.append('slug', productToSave.slug );
@@ -71,13 +73,21 @@ export const ProductForm = ({ product, categories }: Props) => {
     formData.append('categoryId', productToSave.categoryId );
     formData.append('gender', productToSave.gender );
 
+    if( images ){
+      for (let i = 0 ; i < images.length ; i++){
+          formData.append('images', images[i])
+      }
+    }
+
     const { ok, product: updatedProduct } = await createUpdateProduct( formData )
-     if(!ok) {
+     
+   
+    if(!ok) {
       alert('No se pudo actualizar el producto.')
       return;
      }
     router.replace(`/admin/product/${updatedProduct?.slug}`)
-  
+    window.location.replace(`/admin/product/${updatedProduct?.slug}`)
   } 
 
 
@@ -173,8 +183,15 @@ export const ProductForm = ({ product, categories }: Props) => {
           </select>
         </div>
 
-        <button className="btn-primary w-full">
-          Guardar
+        <button className={clsx(
+            {
+            "btn-primary w-full": isValid,
+            "btn-disabled w-full": !isValid,
+            }
+           )
+          } 
+            disabled={!isValid}>
+             Guardar
         </button>
       </div>
 
@@ -221,25 +238,27 @@ export const ProductForm = ({ product, categories }: Props) => {
             <span>Fotos</span>
             <input 
               type="file"
+              {...register('images')}
               multiple 
               className="p-2 border rounded-md bg-gray-200" 
-              accept="image/png, image/jpeg"
+              accept="image/png, image/jpeg, image/avif"
             />
 
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 m-auto">
             {
              product.ProductImage?.map(image => (
               <div key={image.id} >
-                <Image  src={`/products/${image.url}`} 
+                <ProductImage 
+                        src={ image.url } 
                         alt={image.id.toString()} 
                         width={300} height={300}
                         className="rounded-t shadow-md"
                         />
               <button type="button" 
                       className="btn-delete w-full rounded-b-xl"
-                      onClick={()=> console.log(image.id, image.url)}
+                      onClick={()=> deleteProductImage(image.id, image.url)}
                       >Eliminar</button>
               </div>
              ))

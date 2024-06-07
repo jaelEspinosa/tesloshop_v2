@@ -35,10 +35,10 @@ export default async function ProductsPage({searchParams}:Props) {
 
   return (
     <>
-      <Title title="Mantemimiento de productos" />
+      <Title  title="Mantemimiento de productos" />
 
       <div className='flex justify-end mb-5'>
-           <Link href='/admin/product/new' className='btn-primary'>Nuevo Producto</Link>
+           <Link href='/admin/product/new' className='btn-primary text-red-500 mr-2'>Nuevo Producto</Link>
 
       </div>
 

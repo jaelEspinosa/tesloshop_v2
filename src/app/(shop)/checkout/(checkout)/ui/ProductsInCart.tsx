@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 
 import { currencyFormat } from '@/utils'
-import { LoadingSpinner } from '@/components'
+import { LoadingSpinner, ProductImage } from '@/components'
 
 
 export const ProductsInCart = () => {
@@ -35,8 +35,8 @@ export const ProductsInCart = () => {
     {
                 productsIncart.map( product => (
                     <div key={`${product.slug}-${product.size}`} className="flex mb-5">
-                   <Image 
-                     src={`/products/${product.image}`}
+                   <ProductImage 
+                     src={ product.image }
                      width={100}
                      height={100}
                      style={{
@@ -45,7 +45,7 @@ export const ProductsInCart = () => {
                      }}
                      alt={product.title}
                      className="mr-5 rounded"
-                     priority={true}
+                     
                    />
                         <div className="w-full">                            
                             

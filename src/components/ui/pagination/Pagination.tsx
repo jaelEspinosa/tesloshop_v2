@@ -49,7 +49,7 @@ export const Pagination = ({totalPages}:Props) => {
   }
     
   return (
-    <div className="flex justify-center text-center mt-10 mb-16">
+    <div className="flex justify-center text-center mt-10 mb-8 ">
     <nav>
       <ul className="flex list-style-none">
 

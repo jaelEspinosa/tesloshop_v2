@@ -3,12 +3,16 @@
 import { useAddressStore, useUiStore } from '@/store';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoPeopleOutline, IoPersonOutline, IoSearchOutline, IoShirtOutline, IoTicketOutline } from 'react-icons/io5'
+import { IoCloseOutline, IoFemaleOutline, IoLogInOutline, IoLogOutOutline, IoMaleOutline, IoPeopleOutline, IoPersonOutline, IoSearchOutline, IoShirtOutline, IoTicketOutline } from 'react-icons/io5'
 
 
 
 import { logout } from '@/actions/auth/logout';
 import { useSession } from 'next-auth/react';
+import { TbMoodKid } from 'react-icons/tb';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 
 export const Sidebar = () => {
   const issideMenuOpen = useUiStore(state => state.isSideMenuOpen);
@@ -20,7 +24,8 @@ export const Sidebar = () => {
 
   const isAuthenticated = session?.user ? true : false;
   const isAdmin = session?.user.role === 'admin';
-
+  const [termOfSearch, setTermOfSearch] = useState<string>('')
+  const router = useRouter()
 
   const onLogout = async () => {
     await logout();
@@ -28,6 +33,15 @@ export const Sidebar = () => {
     /* localStorage.removeItem('address-storage') */
     window.location.replace('/')
   }
+
+  const onSubmit =  () => {
+    router.replace(`/tag/${ termOfSearch }`)
+      
+   }
+
+   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTermOfSearch(e.target.value)
+   } 
 
   return (
     <div>
@@ -70,13 +84,46 @@ export const Sidebar = () => {
         {/* input */}
 
         <div className='relative mt-14'>
-          <IoSearchOutline size={20} className='absolute top-2 left-2' />
+          <IoSearchOutline size={20} className='absolute top-2 left-2'
+           onClick={() =>{
+            onSubmit();
+            closeMenu();
+           }}
+          />
           <input type="text"
             placeholder='buscar'
-            className='w-full bg-gray-50 rounded pl-10 py-1 pr-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-blue-500 ' />
+            className='w-full bg-gray-50 rounded pl-10 py-1 pr-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-blue-500 '
+            value={termOfSearch}
+            onChange={e => handleSearchChange(e)}
+            />
         </div>
 
         {/* menu */}
+
+          <Link href={'/gender/men'}
+              className='flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all'
+              onClick={closeMenu}
+            >
+              <IoMaleOutline size={30} />
+              <span className='ml-3 text-xl'>Hombres</span>
+          </Link>
+
+          <Link href={'/gender/women'}
+              className='flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all'
+              onClick={closeMenu}
+            >
+              <IoFemaleOutline size={30} />
+              <span className='ml-3 text-xl'>Mujeres</span>
+          </Link>
+          <Link href={'/gender/kid'}
+              className='flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all'
+              onClick={closeMenu}
+            >
+              <TbMoodKid size={30} />
+              <span className='ml-3 text-xl'>Niños</span>
+          </Link>
+          <div className='w-full h-px bg-gray-200 my-5' />
+        
         {!isAuthenticated &&
           (
             <>
