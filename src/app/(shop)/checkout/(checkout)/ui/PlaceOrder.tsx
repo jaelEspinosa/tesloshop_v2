@@ -52,13 +52,13 @@ export const PlaceOrder = () => {
 
     useEffect(() => {
         setLoaded(true)
+        const getCountryDb = async () => {
+            const countryDb = await getCountry(address.country)
+            setCountry(countryDb?.name)
+        }
         getCountryDb()
-    }, [])
+    }, [address.country])
 
-    const getCountryDb = async () => {
-        const countryDb = await getCountry(address.country)
-        setCountry(countryDb?.name)
-    }
 
     if (!loaded) {
         return <LoadingSpinner />

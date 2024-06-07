@@ -18,15 +18,17 @@ export const StockLabel = ({ slug }: Props) => {
     const [stock, setStock] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
-        getStock()
-    }, []);
 
-    const getStock = async () => {
-        const stock = await getStockBySlog(slug)
-        setStock(stock)
-        setIsLoading(false)
-        console.log('el stock',stock)
-    }
+        const getStock = async () => {
+            const stock = await getStockBySlog(slug)
+            setStock(stock)
+            setIsLoading(false)
+            console.log('el stock',stock)
+        }
+        getStock()
+    }, [slug]);
+
+    
 
     /* const product = await getProductByslug( slug ) */
     return (
