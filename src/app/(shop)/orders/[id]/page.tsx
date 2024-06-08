@@ -114,8 +114,14 @@ export default async function  OrderPage({params}:Props){
                 </div>
                 {
                     !order?.isPaid ? (
-
+                         <>
+                         <div className=" flex-col sm:flex mb-3 border-red-500 border p-3 rounded-xl">
+                            <p>Usuario dummy paypal: <span className="font-bold">buy_testing@gmail.com</span></p>
+                            <p>Password paypal: <span className="font-bold">A123456789</span></p>
+                         </div>
+                            
                         <PaypalButton amount={order!.total} orderId={order!.id}/>
+                         </>
                     ):(
                         <OrderStatus isPaid = { order!.isPaid } />
                     )

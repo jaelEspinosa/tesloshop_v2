@@ -49,7 +49,8 @@ export default async function  TagPage({params, searchParams}:Props){
       const {currentPage, products: otherProducts, totalPages} = await getPaginatedProductsWithImages({})
       return(
         <>
-        <h1>{`No se ha encontrado ningún producto realacionado con "${tag}"`}</h1>
+        <h1 className="text-xl font-bold mb-2">{`No hemos encontrado nada relacionado con tu busqueda, "${tag}"`}</h1>
+        <h1 className="text-2xl text-blue-800 font-bold mb-10">Estos productos te pueden interesar.</h1>
         <ProductGrid products={ otherProducts }/>
         <Pagination totalPages={ totalPages }/>
         </>
