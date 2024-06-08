@@ -29,6 +29,9 @@ const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     
     }, [])
   const onSubmit =  () => {
+    if(!termOfSearch){
+      return;
+    }
    router.replace(`/tag/${ termOfSearch }`)
      
   }

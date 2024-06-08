@@ -40,7 +40,7 @@ export default async function  TagPage({params, searchParams}:Props){
 
     const termOfSearch = tag.join(' ')
 
-    console.log('tags ',tag)
+    
     const page = searchParams.page ? parseInt( searchParams.page ) : 1
 
     const {currentPage, products, totalPages} = await getProductByTag( tag,{page} )

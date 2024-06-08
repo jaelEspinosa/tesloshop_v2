@@ -35,6 +35,9 @@ export const Sidebar = () => {
   }
 
   const onSubmit =  () => {
+    if(!termOfSearch){
+      return;
+    }
     router.replace(`/tag/${ termOfSearch }`)
       
    }
