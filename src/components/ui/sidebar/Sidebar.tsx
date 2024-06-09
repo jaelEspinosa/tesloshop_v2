@@ -24,13 +24,15 @@ export const Sidebar = () => {
 
   const isAuthenticated = session?.user ? true : false;
   const isAdmin = session?.user.role === 'admin';
+  const user = session?.user.name;
+
   const [termOfSearch, setTermOfSearch] = useState<string>('')
   const router = useRouter()
 
   const onLogout = async () => {
     await logout();
     cleanAddress();
-    /* localStorage.removeItem('address-storage') */
+    localStorage.removeItem('address-storage')
     window.location.replace('/')
   }
 
@@ -83,16 +85,23 @@ export const Sidebar = () => {
           className='absolute top-5 right-5 cursor-pointer'
           onClick={closeMenu}
         />
+          <div className='w-full my-5 mt-20'>
+          <h1 className='my-2 font-bold text-blue-800'>
+            {user ? `Hola ${user}` : ''}
+          </h1>
+          </div>
 
         {/* input */}
 
-        <div className='relative mt-14'>
+        <div className='relative'>
           <IoSearchOutline size={20} className='absolute top-2 left-2'
            onClick={() =>{
             onSubmit();
             closeMenu();
            }}
           />
+
+
           <input type="text"
             placeholder='buscar'
             className='w-full bg-gray-50 rounded pl-10 py-1 pr-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-blue-500 '
@@ -145,13 +154,13 @@ export const Sidebar = () => {
           isAuthenticated &&
           (
             <>
-             <Link href='/profile'
+            {/*  <Link href='/profile'
               onClick={closeMenu}
               className='flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all'
             >
               <IoPersonOutline size={30} />
               <span className='ml-3 text-xl'>Perfil</span>
-            </Link>
+            </Link> */}
             <Link href='/orders' 
                   className='flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all'
                   onClick={closeMenu}

@@ -37,7 +37,7 @@ export const StockLabel = ({ slug }: Props) => {
                 !isLoading ?
                     (
                         <h1 className={clsx(
-                            `${titleFont.className} antialiased font-bold text-l rounded-md text-center w-fit px-2`,
+                            `${titleFont.className} antialiased font-bold text-l rounded-md text-center w-full sm:w-fit px-3 mt-2`,
                             {
                                 'bg-green-600': stock >= 10,
                                 'bg-orange-500': stock < 10 && stock >= 1,
